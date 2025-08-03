@@ -5,7 +5,7 @@ export default async function Notes() {
   const initialQuery = "";
   const initialPage = 1;
 
-  const initialData = await fetchNotes({searchText: initialQuery, pageQuery: initialPage});
+  await fetchNotes({searchText: initialQuery, pageQuery: initialPage});
 
   return (
     <NotesClient
