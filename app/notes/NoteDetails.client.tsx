@@ -3,6 +3,8 @@ import { fetchNoteById } from "@/lib/api";
 import { useParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query";
 import css from './NoteDetails.module.css'
+
+
 const NoteDetailsClient = () =>{
     
     const {id} = useParams<{id: string}>();
@@ -22,7 +24,10 @@ const NoteDetailsClient = () =>{
     }
 
     if(isError || !data){
-        <p>Something went wrong.</p>;
+        return(
+            <p>Something went wrong.</p>
+        )
+        
     }
 
     return(
