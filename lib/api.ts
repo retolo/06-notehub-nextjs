@@ -20,7 +20,7 @@ interface FetchNotesRequest{
     pageQuery?: number
 }
 
-type idNote = Note['id'];
+
 export const fetchNotes = async ({searchText, pageQuery}: FetchNotesRequest): Promise<FetchNotesProps> => {
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await axios.get<FetchNotesProps>(
@@ -58,7 +58,7 @@ export const  createNote = async (newTask: CreateNoteTask): Promise<Note> => {
     return response.data
 }
 
-export const  deleteNote = async (id: idNote): Promise<Note> =>{
+export const  deleteNote = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await axios.delete<Note>(
         `https://notehub-public.goit.study/api/notes/${id}`,
@@ -74,7 +74,7 @@ export const  deleteNote = async (id: idNote): Promise<Note> =>{
 }
 
 
-export const  fetchNoteById = async (id: idNote): Promise<Note> =>{
+export const  fetchNoteById = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await axios.get<Note>(
         `https://notehub-public.goit.study/api/notes/${id}`,

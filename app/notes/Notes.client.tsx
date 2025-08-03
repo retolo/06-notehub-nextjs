@@ -9,12 +9,17 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { fetchNotes } from '@/lib/api'
 import Pagination from '@/components/Pagination/Pagination'
 import NoteForm from '@/components/NoteForm/NoteForm'
+import { Note } from '@/types/note'
 
 interface NotesClientProps {
+    initialData: {
+        totalPages: number
+        notes: Note[]
+    }
     initialPage: number
     initialQuery: string
 }
-export default function NotesClient({initialPage, initialQuery}: NotesClientProps){
+export default function NotesClient({initialPage, initialQuery, initialData}: NotesClientProps){
     
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<string>(initialQuery);
@@ -39,12 +44,12 @@ export default function NotesClient({initialPage, initialQuery}: NotesClientProp
     
         
     const {data} = useQuery({
-        queryKey: ['notes', debouncedSearch, currentPage],
+        queryKey: ['notes', debouncedSearch, currentPage, initialData],
         queryFn: () => fetchNotes({
             ...(debouncedSearch.trim() ? {searchText: debouncedSearch}: {}),
             pageQuery: currentPage
         }),
-        placeholderData: keepPreviousData,
+        placeholderData: keepPreviousData, initialData
     })
 
     

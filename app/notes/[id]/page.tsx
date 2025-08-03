@@ -5,7 +5,7 @@ import { QueryClient, HydrationBoundary, dehydrate} from "@tanstack/react-query"
 
 
 type Props = {
-    params: Promise<{id: number}>
+    params: Promise<{id: string}>
 }
 
 
