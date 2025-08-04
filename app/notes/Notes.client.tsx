@@ -1,15 +1,16 @@
 'use client'
 import css from './App.module.css'
 import NoteList from '@/components/NoteList/NoteList'
-import { useDebounce } from 'use-debounce'
+import { useDebounce, useDebouncedCallback } from 'use-debounce'
 import Modal from '@/components/Modal/Modal'
 import SearchBox from '@/components/SearchBox/SearchBox'
-import  { useState, useEffect } from 'react'
+import  React, { useState, useEffect, useRef } from 'react'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { fetchNotes } from '@/lib/api'
 import Pagination from '@/components/Pagination/Pagination'
 import NoteForm from '@/components/NoteForm/NoteForm'
 import { Note } from '@/types/note'
+
 
 interface NotesClientProps {
     initialData: {
@@ -29,15 +30,22 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
         1000,
     )
 
-    
+    const ref = useRef(true);
 
     useEffect(() =>{
         
-            setCurrentPage(1)
+        if(ref.current){
+            ref.current = false
+            return;
+        }
+        setCurrentPage(1)
             
         
             
-    }, [debouncedSearch])
+    }, [searchQuery])
+
+
+    
 
 
     
