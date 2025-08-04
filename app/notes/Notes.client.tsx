@@ -70,7 +70,7 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
     return(
         <div className={css.app}>
             <header className={css.toolbar}>
-                <SearchBox  onChange={setSearchQuery}/>
+                <SearchBox  onChange={changeSearchQuery}/>
                 <button type='button' onClick={() => setIsModalOpen(true)} className={css.button}>Create note +</button>
 
                 
@@ -79,7 +79,7 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
                 <NoteList notes={data?.notes}/>
             }
             {totalPages !== undefined && totalPages > 1 &&
-                <Pagination totalPages={totalPages} currentPage={currentPage} onPageSelect={() => changeSearchQuery}/>
+                <Pagination totalPages={totalPages} currentPage={currentPage} onPageSelect={setCurrentPage}/>
 
             }
             
