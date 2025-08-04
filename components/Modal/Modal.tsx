@@ -5,7 +5,7 @@ import type React from 'react'
 import { useEffect } from 'react'
 interface ModalProps{
     onClose: () => void
-    isOpen: boolean  
+     
     children?: React.ReactNode;
 
 }
@@ -23,7 +23,7 @@ const BoxModal = ({children}: {children?: React.ReactNode}) =>{
     
 }
 
-export default function Modal({onClose, isOpen, children}: ModalProps){
+export default function Modal({onClose, children}: ModalProps){
 
     
 
@@ -49,9 +49,7 @@ export default function Modal({onClose, isOpen, children}: ModalProps){
         }
     }, [onClose])
    
-    if(!isOpen){
-        return null;
-    }
+    
 
     
 

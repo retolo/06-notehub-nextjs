@@ -30,19 +30,13 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
         1000,
     )
 
-    const ref = useRef(true);
+        
+    const changeSearchQuery = useDebouncedCallback((newQuery: string) => {
+        setCurrentPage(1);
+        setSearchQuery(newQuery);
+     }, 300);
+    
 
-    useEffect(() =>{
-        
-        if(ref.current){
-            ref.current = false
-            return;
-        }
-        setCurrentPage(1)
-            
-        
-            
-    }, [searchQuery])
 
 
     
@@ -52,7 +46,7 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
     
         
     const {data} = useQuery({
-        queryKey: ['notes', debouncedSearch, currentPage, initialData],
+        queryKey: ['notes', debouncedSearch, currentPage],
         queryFn: () => fetchNotes({
             ...(debouncedSearch.trim() ? {searchText: debouncedSearch}: {}),
             pageQuery: currentPage
@@ -85,12 +79,12 @@ export default function NotesClient({initialPage, initialQuery, initialData}: No
                 <NoteList notes={data?.notes}/>
             }
             {totalPages !== undefined && totalPages > 1 &&
-                <Pagination totalPages={totalPages} currentPage={currentPage} onPageSelect={setCurrentPage}/>
+                <Pagination totalPages={totalPages} currentPage={currentPage} onPageSelect={() => changeSearchQuery}/>
 
             }
             
             {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                <Modal onClose={handleCloseModal}>
                     <NoteForm onClose={handleCloseModal}/>
 
                 </Modal>
